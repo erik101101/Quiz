@@ -16,6 +16,8 @@ fn main() {
     questions.insert(100, "Warum ist die Banane krumm?");
     questions.insert(200, "How much is the fish?");
 
+    let mut total_points = 0;
+
     loop {
         for (idx, points) in questions.keys().enumerate() {
             let idx = idx + 1;
@@ -23,6 +25,7 @@ fn main() {
         }
         let keys: Vec<_> = questions.keys().collect();
 
+        let points;
         loop {
             let number = read_int();
 
@@ -33,6 +36,7 @@ fn main() {
                 }
                 if let Some(key) = keys.get(ok_number - 1) {
                     println!("{q}", q = questions.get(key).unwrap());
+                    points = **key;
                     break;
                 } else {
                     println!("FEHLER!!!! ALLES EXPLODIERT!!!!!!11!!!1!1!!!!11!")
@@ -41,6 +45,23 @@ fn main() {
                 println!("Die Eingabe ist keine Zahl oder eine negative oder zu hohe Zahl.")
             }
         }
+
+        loop {
+            println!("Was the answer correct? [0/1]");
+            match read_int() {
+                Ok(0) => total_points -= points,
+                Ok(1) => total_points += points,
+                _ => {
+                    println!("Input was not 0 or 1");
+                    continue;
+                }
+            }
+
+            break;
+        }
+
+        println!("Total points: {total_points}");
+
         println!("Next round");
     }
 }

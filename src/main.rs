@@ -2,13 +2,17 @@ use std::collections::HashMap;
 use std::io;
 use std::num::ParseIntError;
 
-fn read_int() -> Result<usize, ParseIntError> {
+fn read_string() -> String {
     let stdin = io::stdin();
 
     let mut s = String::new();
     stdin.read_line(&mut s).unwrap();
 
-    s.trim().parse()
+    s.trim().to_string()
+}
+
+fn read_int() -> Result<usize, ParseIntError> {
+    read_string().parse()
 }
 
 fn main() {
@@ -16,8 +20,9 @@ fn main() {
     questions.insert(100, "Warum ist die Banane krumm?");
     questions.insert(200, "How much is the fish?");
 
-    let mut total_points = 0;
+    let players: HashMap<String, i32> = HashMap::new();
 
+    let mut total_points = 0;
     loop {
         for (idx, points) in questions.keys().enumerate() {
             let idx = idx + 1;
